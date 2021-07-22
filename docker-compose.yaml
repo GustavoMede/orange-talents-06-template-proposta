@@ -1,6 +1,19 @@
 version: '3'
 services:
 
+  mysql:
+    image: 'mysql:latest'
+    volumes:
+      - C:\Users\gustavo.coelho\Desktop\database:/var/lib/mysql
+    ports:
+      - 3507:3306
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password1
+      MYSQL_DATABASE: proposta
+      MYSQL-HOST: mysql
+
   zookeeper:
     image: "confluentinc/cp-zookeeper:5.2.1"
     environment:
@@ -138,3 +151,4 @@ volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
+  mysql-volume:
