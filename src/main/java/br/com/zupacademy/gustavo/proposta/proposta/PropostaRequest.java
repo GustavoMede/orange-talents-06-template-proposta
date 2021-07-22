@@ -1,5 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.proposta;
 
+import br.com.zupacademy.gustavo.proposta.annotation.CampoDuplicado;
 import br.com.zupacademy.gustavo.proposta.annotation.CpfOuCnpj;
 import br.com.zupacademy.gustavo.proposta.endereco.Endereco;
 
@@ -15,6 +16,7 @@ public class PropostaRequest {
     private String nome;
     @NotNull
     private Endereco endereco;
+    @CampoDuplicado(domainClass = Proposta.class, fieldName = "documento")
     @CpfOuCnpj
     private String documento;
     @NotNull @Positive
