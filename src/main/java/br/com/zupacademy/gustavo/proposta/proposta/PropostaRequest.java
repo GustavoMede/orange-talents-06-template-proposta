@@ -46,6 +46,10 @@ public class PropostaRequest {
         return salario;
     }
 
+    public String getDocumento() {
+        return documento;
+    }
+
     public Proposta converte() {
         Integer salarioConvertido = salario.multiply(BigDecimal.valueOf(100)).intValue();
         Proposta proposta = new Proposta(this.email, this.nome, this.endereco,

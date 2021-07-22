@@ -17,6 +17,11 @@ public class Proposta {
     private Endereco endereco;
     private String documento;
     private Integer salario;
+    @Enumerated(EnumType.STRING)
+    private EstadoProposta estado;
+
+    public Proposta() {
+    }
 
     public Proposta(@NotBlank @Email String email, @NotBlank String nome, @NotNull Endereco endereco,
                     @NotBlank String documento, @NotNull @NotEmpty @Positive Integer salario) {
@@ -25,5 +30,13 @@ public class Proposta {
         this.endereco = endereco;
         this.documento = documento;
         this.salario = salario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setEstado(EstadoProposta estado) {
+        this.estado = estado;
     }
 }
