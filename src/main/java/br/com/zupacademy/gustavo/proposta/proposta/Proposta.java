@@ -19,6 +19,7 @@ public class Proposta {
     private Integer salario;
     @Enumerated(EnumType.STRING)
     private EstadoProposta estado;
+    private String numeroCartao;
 
     public Proposta() {
     }
@@ -38,5 +39,37 @@ public class Proposta {
 
     public void setEstado(EstadoProposta estado) {
         this.estado = estado;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public Integer getSalario() {
+        return salario;
+    }
+
+    public EstadoProposta getEstado() {
+        return estado;
+    }
+
+    public String getNumeroCartao() {
+        return numeroCartao;
+    }
+
+    public void setNumeroCartao(String numeroCartao) {
+        this.numeroCartao = String.valueOf(numeroCartao.hashCode());
     }
 }

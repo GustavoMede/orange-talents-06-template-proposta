@@ -5,9 +5,14 @@ import br.com.zupacademy.gustavo.proposta.analiseProposta.ConsultaSolicitanteReq
 import br.com.zupacademy.gustavo.proposta.analiseProposta.ConsultaSolicitanteResponse;
 import br.com.zupacademy.gustavo.proposta.endereco.Endereco;
 import br.com.zupacademy.gustavo.proposta.endereco.EnderecoRepository;
+import br.com.zupacademy.gustavo.proposta.novoCartao.CartaoRepository;
+import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartao;
+import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartaoRequest;
+import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartaoResponse;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +28,22 @@ public class PropostaController {
 
     ConsultaSolicitante consultaSolicitante;
 
+    NovoCartao novoCartao;
+
     PropostaRepository propostaRepository;
 
     EnderecoRepository enderecoRepository;
 
+    CartaoRepository cartaoRepository;
+
     public PropostaController(ConsultaSolicitante consultaSolicitante,
-                              PropostaRepository propostaRepository, EnderecoRepository enderecoRepository) {
+                              PropostaRepository propostaRepository, EnderecoRepository enderecoRepository,
+                              NovoCartao novoCartao, CartaoRepository cartaoRepository) {
         this.consultaSolicitante = consultaSolicitante;
         this.propostaRepository = propostaRepository;
         this.enderecoRepository = enderecoRepository;
+        this.novoCartao = novoCartao;
+        this.cartaoRepository = cartaoRepository;
     }
 
     @PostMapping
@@ -49,9 +61,13 @@ public class PropostaController {
             try{
                 ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
                 proposta.setEstado(EstadoProposta.ELEGIVEL);
+
                 propostaRepository.save(proposta);
+
                 URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+
                 return ResponseEntity.created(uri).build();
+
             }catch(FeignException ex) {
                 proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
                 propostaRepository.save(proposta);
@@ -70,7 +86,9 @@ public class PropostaController {
         try{
             ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
             proposta.setEstado(EstadoProposta.ELEGIVEL);
+
             propostaRepository.save(proposta);
+
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
             return ResponseEntity.created(uri).build();
         }catch(FeignException ex) {
