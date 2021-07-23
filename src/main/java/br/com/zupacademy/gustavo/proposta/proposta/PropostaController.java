@@ -13,10 +13,7 @@ import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -97,5 +94,16 @@ public class PropostaController {
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
             return ResponseEntity.created(uri).build();
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EstadoProposta> mostraEstadoProposta(@PathVariable Long id){
+        Proposta proposta = propostaRepository.findId(id);
+        if(!(proposta == null)){
+
+            return ResponseEntity.ok(proposta.getEstado());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

@@ -26,7 +26,7 @@ public class GeraNovoCartao {
         this.cartaoRepository = cartaoRepository;
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 10000)
     public void geraNovoCartao(){
         List<Proposta> listaDePropostas = propostaRepository.findAll();
         for (Proposta listaDeProposta : listaDePropostas) {
