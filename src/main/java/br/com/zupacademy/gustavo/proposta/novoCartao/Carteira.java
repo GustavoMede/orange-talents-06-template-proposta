@@ -15,14 +15,14 @@ public class Carteira {
     private LocalDateTime associadaEm;
     private String emissor;
     @ManyToOne
-    private NovoCartaoResponse novoCartaoResponse;
+    private Cartao cartao;
 
-    public Carteira(String id, String email, LocalDateTime associadaEm, String emissor, NovoCartaoResponse novoCartaoResponse) {
+    public Carteira(String id, String email, LocalDateTime associadaEm, String emissor, Cartao cartao) {
         this.id = id;
         this.email = email;
         this.associadaEm = associadaEm;
         this.emissor = emissor;
-        this.novoCartaoResponse = novoCartaoResponse;
+        this.cartao = cartao;
     }
 
     public String getId() {
@@ -54,7 +54,7 @@ public class Carteira {
         return Objects.hash(id, email, associadaEm, emissor);
     }
 
-    public Carteira converte(NovoCartaoResponse novoCartaoResponse) {
-        return new Carteira(id, email, associadaEm, emissor, novoCartaoResponse);
+    public Carteira converte(Cartao cartao) {
+        return new Carteira(id, email, associadaEm, emissor, cartao);
     }
 }

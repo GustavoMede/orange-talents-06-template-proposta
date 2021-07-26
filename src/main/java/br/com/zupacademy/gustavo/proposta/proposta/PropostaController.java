@@ -7,12 +7,8 @@ import br.com.zupacademy.gustavo.proposta.endereco.Endereco;
 import br.com.zupacademy.gustavo.proposta.endereco.EnderecoRepository;
 import br.com.zupacademy.gustavo.proposta.novoCartao.CartaoRepository;
 import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartao;
-import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartaoRequest;
-import br.com.zupacademy.gustavo.proposta.novoCartao.NovoCartaoResponse;
 import feign.FeignException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

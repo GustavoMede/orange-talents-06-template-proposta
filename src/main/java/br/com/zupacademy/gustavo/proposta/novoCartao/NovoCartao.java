@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface NovoCartao {
 
     @PostMapping("/cartoes")
-    NovoCartaoResponse solicitaNovoCartao(@RequestBody NovoCartaoRequest request);
+    Cartao solicitaNovoCartao(@RequestBody NovoCartaoRequest request);
 }

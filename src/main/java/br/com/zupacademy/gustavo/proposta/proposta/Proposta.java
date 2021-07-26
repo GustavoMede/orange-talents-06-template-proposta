@@ -37,10 +37,6 @@ public class Proposta {
         return id;
     }
 
-    public void setEstado(EstadoProposta estado) {
-        this.estado = estado;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -71,5 +67,9 @@ public class Proposta {
 
     public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = String.valueOf(numeroCartao.hashCode());
+    }
+
+    public void setEstado(EstadoProposta estado) {
+        this.estado = estado;
     }
 }

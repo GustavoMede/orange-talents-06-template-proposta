@@ -2,5 +2,5 @@ package br.com.zupacademy.gustavo.proposta.novoCartao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartaoRepository extends JpaRepository<NovoCartaoResponse, Long> {
+public interface CartaoRepository extends JpaRepository<Cartao, Long> {
 }

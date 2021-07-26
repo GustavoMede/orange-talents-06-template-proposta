@@ -15,15 +15,15 @@ public class Bloqueio {
     private String sistemaResponsavel;
     private boolean ativo;
     @ManyToOne
-    private NovoCartaoResponse novoCartaoResponse;
+    private Cartao cartao;
 
     public Bloqueio(String id, LocalDateTime bloqueadoEm, String sistemaResponsavel, boolean ativo,
-                    NovoCartaoResponse novoCartaoResponse) {
+                    Cartao cartao) {
         this.id = id;
         this.bloqueadoEm = bloqueadoEm;
         this.sistemaResponsavel = sistemaResponsavel;
         this.ativo = ativo;
-        this.novoCartaoResponse = novoCartaoResponse;
+        this.cartao = cartao;
     }
 
     public String getId() {
@@ -55,7 +55,7 @@ public class Bloqueio {
         return Objects.hash(id, bloqueadoEm, sistemaResponsavel, ativo);
     }
 
-    public Bloqueio converte(NovoCartaoResponse novoCartaoResponse) {
-        return new Bloqueio(id, bloqueadoEm, sistemaResponsavel, ativo, novoCartaoResponse);
+    public Bloqueio converte(Cartao cartao) {
+        return new Bloqueio(id, bloqueadoEm, sistemaResponsavel, ativo, cartao);
     }
 }
