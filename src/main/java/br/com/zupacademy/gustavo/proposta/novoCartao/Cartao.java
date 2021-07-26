@@ -1,7 +1,5 @@
 package br.com.zupacademy.gustavo.proposta.novoCartao;
 
-import br.com.zupacademy.gustavo.proposta.biometria.Biometria;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
