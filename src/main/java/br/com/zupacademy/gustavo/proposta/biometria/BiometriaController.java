@@ -1,7 +1,7 @@
 package br.com.zupacademy.gustavo.proposta.biometria;
 
-import br.com.zupacademy.gustavo.proposta.novoCartao.CartaoRepository;
-import br.com.zupacademy.gustavo.proposta.novoCartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.Cartao.CartaoRepository;
+import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

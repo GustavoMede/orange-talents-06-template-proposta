@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.novoCartao;
+package br.com.zupacademy.gustavo.proposta.Cartao;
 
 import br.com.zupacademy.gustavo.proposta.proposta.EstadoProposta;
 import br.com.zupacademy.gustavo.proposta.proposta.Proposta;

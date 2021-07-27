@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.novoCartao;
+package br.com.zupacademy.gustavo.proposta.Cartao;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,8 +15,8 @@ public class Cartao {
     private String id;
     private LocalDateTime emitidoEm;
     private String titular;
-    @OneToMany(mappedBy = "cartao", cascade = CascadeType.PERSIST)
-    private Set<Bloqueio> bloqueios = new HashSet<>();
+    @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
+    private Bloqueio bloqueio;
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.PERSIST)
     private Set<Carteira> carteiras = new HashSet<>();
     private Integer limite;
@@ -25,16 +25,13 @@ public class Cartao {
     public Cartao() {
     }
 
-    public Cartao(String idCartao, LocalDateTime emitidoEm, String titular, Set<Bloqueio> bloqueios,
+    public Cartao(String idCartao, LocalDateTime emitidoEm, String titular, Bloqueio bloqueio,
                   Set<Carteira> carteiras, Integer limite,
                   String idProposta) {
         this.id = idCartao;
         this.emitidoEm = emitidoEm;
         this.titular = titular;
-        Set<Bloqueio> bloqueioSet = bloqueios.stream()
-                .map(bloqueio -> bloqueio.converte(this)).collect(Collectors.toSet());
-        this.bloqueios.addAll(bloqueioSet);
-        this.bloqueios = bloqueios;
+        this.bloqueio = bloqueio;
         Set<Carteira> carteiraSet = carteiras.stream()
                 .map(carteira -> carteira.converte(this)).collect(Collectors.toSet());
         this.carteiras.addAll(carteiraSet);
@@ -58,8 +55,8 @@ public class Cartao {
         return titular;
     }
 
-    public Set<Bloqueio> getBloqueios() {
-        return bloqueios;
+    public Bloqueio getBloqueio() {
+        return bloqueio;
     }
 
 

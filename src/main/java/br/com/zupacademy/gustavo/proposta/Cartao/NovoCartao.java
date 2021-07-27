@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.novoCartao;
+package br.com.zupacademy.gustavo.proposta.Cartao;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
