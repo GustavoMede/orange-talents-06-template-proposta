@@ -66,7 +66,7 @@ public class Proposta {
     }
 
     public void setNumeroCartao(String numeroCartao) {
-        this.numeroCartao = String.valueOf(numeroCartao.hashCode());
+        this.numeroCartao = numeroCartao;
     }
 
     public void setEstado(EstadoProposta estado) {

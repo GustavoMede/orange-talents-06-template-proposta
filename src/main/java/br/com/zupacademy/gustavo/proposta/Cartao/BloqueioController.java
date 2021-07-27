@@ -1,6 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.Cartao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +11,18 @@ import java.util.Optional;
 @RequestMapping("/bloqueio")
 public class BloqueioController {
 
-    @Autowired
     BloqueioRepository bloqueioRepository;
 
-    @Autowired
     CartaoRepository cartaoRepository;
+
+    BloqueiaCartao bloqueiaCartao;
+
+    public BloqueioController(BloqueioRepository bloqueioRepository, CartaoRepository cartaoRepository,
+                              BloqueiaCartao bloqueiaCartao) {
+        this.bloqueioRepository = bloqueioRepository;
+        this.cartaoRepository = cartaoRepository;
+        this.bloqueiaCartao = bloqueiaCartao;
+    }
 
     @PostMapping("/{idCartao}")
     public ResponseEntity<?> bloqueia(@PathVariable Long idCartao, HttpServletRequest httpServletRequest){
@@ -30,7 +37,12 @@ public class BloqueioController {
             Bloqueio bloqueio = new Bloqueio(ipCliente, userAgent, cartao.get());
             bloqueioRepository.save(bloqueio);
 
-            return ResponseEntity.ok().build();
+                BloqueioRequest bloqueioRequest = new BloqueioRequest("proposta-API");
+                bloqueiaCartao.solicitaBloqueio(cartao.get().getId(), bloqueioRequest);
+                bloqueio.setBloqueio(EstadoBloqueio.BLOQUEADO);
+                bloqueioRepository.save(bloqueio);
+
+                return ResponseEntity.ok().build();
         }
         return ResponseEntity.unprocessableEntity().build();
     }

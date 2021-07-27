@@ -3,7 +3,6 @@ package br.com.zupacademy.gustavo.proposta.Cartao;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 public class Bloqueio {
@@ -19,6 +18,8 @@ public class Bloqueio {
     @OneToOne
     @JoinColumn
     private Cartao cartao;
+    @Enumerated(EnumType.STRING)
+    private EstadoBloqueio bloqueio;
 
     public Bloqueio() {
     }
@@ -39,5 +40,9 @@ public class Bloqueio {
 
     public String getUserAgent() {
         return userAgent;
+    }
+
+    public void setBloqueio(EstadoBloqueio bloqueio) {
+        this.bloqueio = bloqueio;
     }
 }

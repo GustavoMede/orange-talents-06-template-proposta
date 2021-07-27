@@ -1,5 +1,8 @@
 package br.com.zupacademy.gustavo.proposta.Cartao;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -25,10 +28,10 @@ public class Cartao {
     public Cartao() {
     }
 
-    public Cartao(String idCartao, LocalDateTime emitidoEm, String titular, Bloqueio bloqueio,
+    public Cartao(String id, LocalDateTime emitidoEm, String titular, Bloqueio bloqueio,
                   Set<Carteira> carteiras, Integer limite,
                   String idProposta) {
-        this.id = idCartao;
+        this.id = id;
         this.emitidoEm = emitidoEm;
         this.titular = titular;
         this.bloqueio = bloqueio;
@@ -71,10 +74,5 @@ public class Cartao {
 
     public String getIdProposta() {
         return idProposta;
-    }
-
-    public Cartao hasheiaNumero() {
-        this.id = String.valueOf(id.hashCode());
-        return this;
     }
 }

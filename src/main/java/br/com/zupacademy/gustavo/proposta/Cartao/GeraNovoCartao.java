@@ -39,8 +39,7 @@ public class GeraNovoCartao {
                 try {
                     Cartao novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
                     proposta.setNumeroCartao(novoCartaoResponse.getId());
-                    Cartao cartao = novoCartaoResponse.hasheiaNumero();
-                    cartaoRepository.save(cartao);
+                    cartaoRepository.save(novoCartaoResponse);
                     propostaRepository.save(proposta);
                 } catch (FeignException ignored) {
                 }
