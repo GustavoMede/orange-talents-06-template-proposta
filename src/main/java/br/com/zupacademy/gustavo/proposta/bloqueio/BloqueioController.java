@@ -35,15 +35,14 @@ public class BloqueioController {
         }else if(cartao.get().getBloqueio() == null){
             String userAgent = httpServletRequest.getHeader("User-Agent");
             String ipCliente = httpServletRequest.getRemoteAddr();
-            Bloqueio bloqueio = new Bloqueio(ipCliente, userAgent, cartao.get());
+
+            BloqueioRequest bloqueioRequest = new BloqueioRequest("proposta-API");
+            bloqueiaCartao.solicitaBloqueio(cartao.get().getId(), bloqueioRequest);
+            Bloqueio bloqueio = new Bloqueio(ipCliente, userAgent, cartao.get(), EstadoBloqueio.BLOQUEADO);
+
             bloqueioRepository.save(bloqueio);
 
-                BloqueioRequest bloqueioRequest = new BloqueioRequest("proposta-API");
-                bloqueiaCartao.solicitaBloqueio(cartao.get().getId(), bloqueioRequest);
-                bloqueio.setBloqueio(EstadoBloqueio.BLOQUEADO);
-                bloqueioRepository.save(bloqueio);
-
-                return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.unprocessableEntity().build();
     }

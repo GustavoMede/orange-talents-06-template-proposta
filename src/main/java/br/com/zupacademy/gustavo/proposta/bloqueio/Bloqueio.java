@@ -25,10 +25,11 @@ public class Bloqueio {
     public Bloqueio() {
     }
 
-    public Bloqueio(String ipCliente, String userAgent, Cartao cartao) {
+    public Bloqueio(String ipCliente, String userAgent, Cartao cartao, EstadoBloqueio bloqueio) {
         this.ipCliente = ipCliente;
         this.userAgent = userAgent;
         this.cartao = cartao;
+        this.bloqueio = bloqueio;
     }
 
     public LocalDateTime getBloqueadoEm() {
@@ -41,9 +42,5 @@ public class Bloqueio {
 
     public String getUserAgent() {
         return userAgent;
-    }
-
-    public void setBloqueio(EstadoBloqueio bloqueio) {
-        this.bloqueio = bloqueio;
     }
 }
