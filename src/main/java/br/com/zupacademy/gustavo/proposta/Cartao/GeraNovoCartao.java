@@ -36,13 +36,10 @@ public class GeraNovoCartao {
                 NovoCartaoRequest novoCartaoRequest = new NovoCartaoRequest(proposta.getDocumento(),
                         proposta.getNome(), proposta.getId().toString());
 
-                try {
-                    Cartao novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
-                    proposta.setNumeroCartao(novoCartaoResponse.getId());
-                    cartaoRepository.save(novoCartaoResponse);
-                    propostaRepository.save(proposta);
-                } catch (FeignException ignored) {
-                }
+                Cartao novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
+                proposta.setNumeroCartao(novoCartaoResponse.getId());
+                cartaoRepository.save(novoCartaoResponse);
+                propostaRepository.save(proposta);
             }
         }
     }

@@ -27,8 +27,4 @@ public class AvisoRequest {
     public LocalDate getDataTermino() {
         return dataTermino;
     }
-
-    public Aviso converte(String ipCliente, String userAgent, Cartao cartao) {
-        return new Aviso(destino, dataTermino, ipCliente, userAgent, cartao);
-    }
 }

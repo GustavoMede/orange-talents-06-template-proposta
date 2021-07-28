@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 public class Cartao {
@@ -17,27 +16,19 @@ public class Cartao {
     private String id;
     private LocalDateTime emitidoEm;
     private String titular;
-    //Lembrar de tirar o bloqueio
-    @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "cartao")
     private Bloqueio bloqueio;
-    @OneToMany(mappedBy = "cartao", cascade = CascadeType.PERSIST)
-    private Set<Carteira> carteiras = new HashSet<>();
     private Integer limite;
     private String idProposta;
 
     public Cartao() {
     }
 
-    public Cartao(String id, LocalDateTime emitidoEm, String titular, Bloqueio bloqueio,
-                  Set<Carteira> carteiras, Integer limite,
+    public Cartao(String id, LocalDateTime emitidoEm, String titular, Integer limite,
                   String idProposta) {
         this.id = id;
         this.emitidoEm = emitidoEm;
         this.titular = titular;
-        this.bloqueio = bloqueio;
-        Set<Carteira> carteiraSet = carteiras.stream()
-                .map(carteira -> carteira.converte(this)).collect(Collectors.toSet());
-        this.carteiras.addAll(carteiraSet);
         this.limite = limite;
         this.idProposta = idProposta;
     }
@@ -61,12 +52,6 @@ public class Cartao {
     public Bloqueio getBloqueio() {
         return bloqueio;
     }
-
-
-    public Set<Carteira> getCarteiras() {
-        return carteiras;
-    }
-
 
     public Integer getLimite() {
         return limite;
