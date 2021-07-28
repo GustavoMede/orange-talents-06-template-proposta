@@ -1,11 +1,15 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.carteira;
 
-import javax.persistence.*;
+import br.com.zupacademy.gustavo.proposta.cartao.NovoCartaoResponse;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-public class Carteira {
+public class CarteiraResponse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,9 +19,9 @@ public class Carteira {
     private LocalDateTime associadaEm;
     private String emissor;
     @ManyToOne
-    private Cartao cartao;
+    private NovoCartaoResponse cartao;
 
-    public Carteira(String id, String email, LocalDateTime associadaEm, String emissor, Cartao cartao) {
+    public CarteiraResponse(String id, String email, LocalDateTime associadaEm, String emissor, NovoCartaoResponse cartao) {
         this.id = id;
         this.email = email;
         this.associadaEm = associadaEm;
@@ -45,16 +49,16 @@ public class Carteira {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Carteira carteira = (Carteira) o;
-        return id.equals(carteira.id) && email.equals(carteira.email) && associadaEm.equals(carteira.associadaEm) && emissor.equals(carteira.emissor);
+        CarteiraResponse that = (CarteiraResponse) o;
+        return id.equals(that.id) && email.equals(that.email) && associadaEm.equals(that.associadaEm) && emissor.equals(that.emissor) && cartao.equals(that.cartao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, associadaEm, emissor);
+        return Objects.hash(id, email, associadaEm, emissor, cartao);
     }
 
-    public Carteira converte(Cartao cartao) {
-        return new Carteira(id, email, associadaEm, emissor, cartao);
+    public CarteiraResponse converte(NovoCartaoResponse cartaoResponse) {
+        return new CarteiraResponse(id, email, associadaEm, emissor, cartaoResponse);
     }
 }

@@ -1,8 +1,7 @@
 package br.com.zupacademy.gustavo.proposta.aviso;
 
-import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
-import br.com.zupacademy.gustavo.proposta.Cartao.CartaoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

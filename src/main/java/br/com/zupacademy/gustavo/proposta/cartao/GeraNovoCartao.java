@@ -1,9 +1,8 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.cartao;
 
 import br.com.zupacademy.gustavo.proposta.proposta.EstadoProposta;
 import br.com.zupacademy.gustavo.proposta.proposta.Proposta;
 import br.com.zupacademy.gustavo.proposta.proposta.PropostaRepository;
-import feign.FeignException;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -36,9 +35,11 @@ public class GeraNovoCartao {
                 NovoCartaoRequest novoCartaoRequest = new NovoCartaoRequest(proposta.getDocumento(),
                         proposta.getNome(), proposta.getId().toString());
 
-                Cartao novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
+                NovoCartaoResponse novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
                 proposta.setNumeroCartao(novoCartaoResponse.getId());
-                cartaoRepository.save(novoCartaoResponse);
+                cartaoRepository.save(new Cartao(novoCartaoResponse.getId(), novoCartaoResponse.getEmitidoEm(),
+                        novoCartaoResponse.getTitular(), novoCartaoResponse.getLimite(),
+                        novoCartaoResponse.getIdProposta()));
                 propostaRepository.save(proposta);
             }
         }

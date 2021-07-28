@@ -1,6 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.bloqueio;
 
-import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -42,5 +42,9 @@ public class Bloqueio {
 
     public String getUserAgent() {
         return userAgent;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
     }
 }

@@ -1,21 +1,23 @@
 package br.com.zupacademy.gustavo.proposta.aviso;
 
-import javax.validation.constraints.Future;
+import br.com.zupacademy.gustavo.proposta.cartao.NovoCartaoResponse;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class AvisoRequest {
+public class AvisoResponse {
 
     @NotBlank
     private String destino;
     @NotNull
-    @Future
     private LocalDate dataTermino;
+    private NovoCartaoResponse cartaoResponse;
 
-    public AvisoRequest(String destino, LocalDate dataTermino) {
+    public AvisoResponse(String destino, LocalDate dataTermino, NovoCartaoResponse cartaoResponse) {
         this.destino = destino;
         this.dataTermino = dataTermino;
+        this.cartaoResponse = cartaoResponse;
     }
 
     public String getDestino() {
@@ -24,5 +26,9 @@ public class AvisoRequest {
 
     public LocalDate getDataTermino() {
         return dataTermino;
+    }
+
+    public AvisoResponse converte(NovoCartaoResponse cartaoResponse){
+        return new AvisoResponse(destino, dataTermino, cartaoResponse);
     }
 }

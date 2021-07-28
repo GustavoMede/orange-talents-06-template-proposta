@@ -1,7 +1,7 @@
 package br.com.zupacademy.gustavo.proposta.bloqueio;
 
-import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
-import br.com.zupacademy.gustavo.proposta.Cartao.CartaoRepository;
+import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +29,11 @@ public class BloqueioController {
     public ResponseEntity<?> bloqueia(@PathVariable Long idCartao, HttpServletRequest httpServletRequest){
 
         Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
+        Optional<Bloqueio> bloqueioBuscado = bloqueioRepository.findCartao(idCartao);
 
         if(cartao.isEmpty()){
             return ResponseEntity.notFound().build();
-        }else if(cartao.get().getBloqueio() == null){
+        }else if(bloqueioBuscado.isEmpty()){
             String userAgent = httpServletRequest.getHeader("User-Agent");
             String ipCliente = httpServletRequest.getRemoteAddr();
 

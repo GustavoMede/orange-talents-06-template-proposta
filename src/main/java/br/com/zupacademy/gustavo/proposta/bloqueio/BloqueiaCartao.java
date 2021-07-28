@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface BloqueiaCartao {
 
     @PostMapping("/cartoes/{id}/bloqueios")
-    void solicitaBloqueio(@PathVariable String id, @RequestBody BloqueioRequest bloqueioRequest);
+    void solicitaBloqueio(@PathVariable String id, @RequestBody BloqueioRequest request);
 }

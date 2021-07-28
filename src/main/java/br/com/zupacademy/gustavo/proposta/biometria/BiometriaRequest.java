@@ -1,7 +1,7 @@
 package br.com.zupacademy.gustavo.proposta.biometria;
 
 import br.com.zupacademy.gustavo.proposta.annotation.IsBase64;
-import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import javax.validation.constraints.NotBlank;

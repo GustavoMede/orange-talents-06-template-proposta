@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.cartao;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

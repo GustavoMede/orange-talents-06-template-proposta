@@ -1,6 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.aviso;
 
-import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
 
 import javax.persistence.*;
 import java.time.LocalDate;

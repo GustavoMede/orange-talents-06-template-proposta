@@ -5,8 +5,8 @@ import br.com.zupacademy.gustavo.proposta.analiseProposta.ConsultaSolicitanteReq
 import br.com.zupacademy.gustavo.proposta.analiseProposta.ConsultaSolicitanteResponse;
 import br.com.zupacademy.gustavo.proposta.endereco.Endereco;
 import br.com.zupacademy.gustavo.proposta.endereco.EnderecoRepository;
-import br.com.zupacademy.gustavo.proposta.Cartao.CartaoRepository;
-import br.com.zupacademy.gustavo.proposta.Cartao.NovoCartao;
+import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
+import br.com.zupacademy.gustavo.proposta.cartao.NovoCartao;
 import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

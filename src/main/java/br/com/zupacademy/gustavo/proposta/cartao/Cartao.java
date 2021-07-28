@@ -1,10 +1,9 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.cartao;
 
 import br.com.zupacademy.gustavo.proposta.bloqueio.Bloqueio;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,8 +15,6 @@ public class Cartao {
     private String id;
     private LocalDateTime emitidoEm;
     private String titular;
-    @OneToOne(mappedBy = "cartao")
-    private Bloqueio bloqueio;
     private Integer limite;
     private String idProposta;
 
@@ -47,10 +44,6 @@ public class Cartao {
 
     public String getTitular() {
         return titular;
-    }
-
-    public Bloqueio getBloqueio() {
-        return bloqueio;
     }
 
     public Integer getLimite() {

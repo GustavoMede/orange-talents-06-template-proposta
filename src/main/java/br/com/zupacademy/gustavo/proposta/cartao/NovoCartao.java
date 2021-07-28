@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.cartao;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface NovoCartao {
 
     @PostMapping("/cartoes")
-    Cartao solicitaNovoCartao(@RequestBody NovoCartaoRequest request);
+    NovoCartaoResponse solicitaNovoCartao(@RequestBody NovoCartaoRequest request);
 }

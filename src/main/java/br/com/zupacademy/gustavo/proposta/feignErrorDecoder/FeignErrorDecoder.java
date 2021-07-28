@@ -22,11 +22,6 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 logger.error("Error took place when using Feign client to send HTTP Request. Status code " + response.status() + ", methodKey = " + methodKey);
                 return new ResponseStatusException(HttpStatus.valueOf(response.status()));
             }
-            case 500:
-            {
-                logger.error("Error took place when using Feign client to send HTTP Request. Status code " + response.status() + ", methodKey = " + methodKey);
-                return new ResponseStatusException(HttpStatus.valueOf(response.status()));
-            }
             default:
                 return new Exception(response.reason());
         }

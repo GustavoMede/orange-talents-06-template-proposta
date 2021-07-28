@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.cartao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
