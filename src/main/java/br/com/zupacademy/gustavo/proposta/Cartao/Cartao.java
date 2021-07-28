@@ -1,7 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.Cartao;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import br.com.zupacademy.gustavo.proposta.bloqueio.Bloqueio;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +17,7 @@ public class Cartao {
     private String id;
     private LocalDateTime emitidoEm;
     private String titular;
+    //Lembrar de tirar o bloqueio
     @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
     private Bloqueio bloqueio;
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.PERSIST)

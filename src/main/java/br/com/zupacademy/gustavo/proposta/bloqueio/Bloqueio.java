@@ -1,4 +1,6 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.bloqueio;
+
+import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,8 +17,7 @@ public class Bloqueio {
     private String ipCliente;
     @NotBlank
     private String userAgent;
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
     private Cartao cartao;
     @Enumerated(EnumType.STRING)
     private EstadoBloqueio bloqueio;

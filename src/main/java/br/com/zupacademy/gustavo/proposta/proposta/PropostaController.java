@@ -40,7 +40,7 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastra(@RequestBody @Valid PropostaRequest request) {
+    public ResponseEntity<URI> cadastra(@RequestBody @Valid PropostaRequest request) {
         Endereco enderecoRequest = request.getEndereco();
         Endereco enderecoExistente = enderecoRepository.findEndereco(enderecoRequest.getRua(),
                 enderecoRequest.getNumero(), enderecoRequest.getCep());

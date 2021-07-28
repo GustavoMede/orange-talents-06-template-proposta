@@ -1,6 +1,7 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.bloqueio;
 
-import feign.FeignException;
+import br.com.zupacademy.gustavo.proposta.Cartao.Cartao;
+import br.com.zupacademy.gustavo.proposta.Cartao.CartaoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

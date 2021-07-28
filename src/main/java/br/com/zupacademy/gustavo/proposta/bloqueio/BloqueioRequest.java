@@ -1,4 +1,4 @@
-package br.com.zupacademy.gustavo.proposta.Cartao;
+package br.com.zupacademy.gustavo.proposta.bloqueio;
 
 public class BloqueioRequest {
 
