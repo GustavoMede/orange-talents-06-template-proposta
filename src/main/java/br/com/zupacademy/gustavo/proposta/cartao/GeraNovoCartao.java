@@ -1,5 +1,6 @@
 package br.com.zupacademy.gustavo.proposta.cartao;
 
+import br.com.zupacademy.gustavo.proposta.bloqueio.Bloqueio;
 import br.com.zupacademy.gustavo.proposta.proposta.EstadoProposta;
 import br.com.zupacademy.gustavo.proposta.proposta.Proposta;
 import br.com.zupacademy.gustavo.proposta.proposta.PropostaRepository;

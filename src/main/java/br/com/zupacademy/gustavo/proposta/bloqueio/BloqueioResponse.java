@@ -27,12 +27,12 @@ public class BloqueioResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BloqueioResponse that = (BloqueioResponse) o;
-        return ativo == that.ativo && id.equals(that.id) && sistemaResponsavel.equals(that.sistemaResponsavel);
+        return ativo == that.ativo && bloqueadoEm.equals(that.bloqueadoEm) && sistemaResponsavel.equals(that.sistemaResponsavel) && cartaoResponse.equals(that.cartaoResponse);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sistemaResponsavel, ativo);
+        return Objects.hash(bloqueadoEm, sistemaResponsavel, ativo, cartaoResponse);
     }
 
     public BloqueioResponse converte(NovoCartaoResponse cartaoResponse) {
