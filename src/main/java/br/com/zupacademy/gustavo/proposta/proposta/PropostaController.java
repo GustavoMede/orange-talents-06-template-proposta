@@ -41,6 +41,7 @@ public class PropostaController {
 
     @PostMapping
     public ResponseEntity<URI> cadastra(@RequestBody @Valid PropostaRequest request) {
+
         Endereco enderecoRequest = request.getEndereco();
         Endereco enderecoExistente = enderecoRepository.findEndereco(enderecoRequest.getRua(),
                 enderecoRequest.getNumero(), enderecoRequest.getCep());
@@ -54,9 +55,7 @@ public class PropostaController {
             try{
                 ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
                 proposta.setEstado(EstadoProposta.ELEGIVEL);
-
                 propostaRepository.save(proposta.encrypt());
-
                 URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
 
                 return ResponseEntity.created(uri).build();
@@ -65,6 +64,7 @@ public class PropostaController {
                 proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
                 propostaRepository.save(proposta.encrypt());
                 URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+
                 return ResponseEntity.created(uri).build();
             }
         }
@@ -78,13 +78,15 @@ public class PropostaController {
             ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
             proposta.setEstado(EstadoProposta.ELEGIVEL);
             propostaRepository.save(proposta.encrypt());
-
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+
             return ResponseEntity.created(uri).build();
+
         }catch(FeignException ex) {
             proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
             propostaRepository.save(proposta.encrypt());
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+
             return ResponseEntity.created(uri).build();
         }
     }

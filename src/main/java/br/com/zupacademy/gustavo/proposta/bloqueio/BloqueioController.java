@@ -2,6 +2,7 @@ package br.com.zupacademy.gustavo.proposta.bloqueio;
 
 import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
 import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
+import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,16 +35,21 @@ public class BloqueioController {
         if(cartao.isEmpty()){
             return ResponseEntity.notFound().build();
         }else if(bloqueioBuscado.isEmpty()){
-            String userAgent = httpServletRequest.getHeader("User-Agent");
-            String ipCliente = httpServletRequest.getRemoteAddr();
 
-            BloqueioRequest bloqueioRequest = new BloqueioRequest("proposta-API");
-            bloqueiaCartao.solicitaBloqueio(cartao.get().getId(), bloqueioRequest);
-            Bloqueio bloqueio = new Bloqueio(ipCliente, userAgent, cartao.get(), EstadoBloqueio.BLOQUEADO);
+            try {
+                String userAgent = httpServletRequest.getHeader("User-Agent");
+                String ipCliente = httpServletRequest.getRemoteAddr();
 
-            bloqueioRepository.save(bloqueio);
+                BloqueioRequest bloqueioRequest = new BloqueioRequest("proposta-API");
+                bloqueiaCartao.solicitaBloqueio(cartao.get().getId(), bloqueioRequest);
+                Bloqueio bloqueio = new Bloqueio(ipCliente, userAgent, cartao.get(), EstadoBloqueio.BLOQUEADO);
 
-            return ResponseEntity.ok().build();
+                bloqueioRepository.save(bloqueio);
+
+                return ResponseEntity.ok().build();
+            }catch(FeignException ex){
+                System.out.println(ex);
+            }
         }
         return ResponseEntity.unprocessableEntity().build();
     }

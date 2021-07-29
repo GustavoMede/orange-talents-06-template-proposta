@@ -4,6 +4,7 @@ import br.com.zupacademy.gustavo.proposta.bloqueio.Bloqueio;
 import br.com.zupacademy.gustavo.proposta.proposta.EstadoProposta;
 import br.com.zupacademy.gustavo.proposta.proposta.Proposta;
 import br.com.zupacademy.gustavo.proposta.proposta.PropostaRepository;
+import feign.FeignException;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -33,14 +34,17 @@ public class GeraNovoCartao {
             Proposta proposta = propostaRepository.findId(listaDeProposta.getId());
             if (!(proposta == null) && proposta.getEstado() == EstadoProposta.ELEGIVEL &&
                     proposta.getNumeroCartao() == null) {
-                String idProposta = proposta.getId().toString();
 
-                NovoCartaoResponse novoCartaoResponse = novoCartao.solicitaNovoCartao(idProposta);
-                proposta.setNumeroCartao(novoCartaoResponse.getId());
-                cartaoRepository.save(new Cartao(novoCartaoResponse.getId(), novoCartaoResponse.getEmitidoEm(),
-                        novoCartaoResponse.getTitular(), novoCartaoResponse.getLimite(),
-                        novoCartaoResponse.getIdProposta()));
-                propostaRepository.save(proposta);
+                try {
+                    String idProposta = proposta.getId().toString();
+                    NovoCartaoResponse novoCartaoResponse = novoCartao.solicitaNovoCartao(idProposta);
+                    proposta.setNumeroCartao(novoCartaoResponse.getId());
+                    cartaoRepository.save(new Cartao(novoCartaoResponse.getId(), novoCartaoResponse.getEmitidoEm(),
+                            novoCartaoResponse.getTitular(), novoCartaoResponse.getLimite(),
+                            novoCartaoResponse.getIdProposta()));
+                    propostaRepository.save(proposta);
+                }catch(FeignException ignored){
+                }
             }
         }
     }

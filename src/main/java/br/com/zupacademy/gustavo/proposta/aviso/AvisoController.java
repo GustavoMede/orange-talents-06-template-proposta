@@ -2,6 +2,7 @@ package br.com.zupacademy.gustavo.proposta.aviso;
 
 import br.com.zupacademy.gustavo.proposta.cartao.Cartao;
 import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
+import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,15 +31,19 @@ public class AvisoController {
         Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
 
         if(cartao.isPresent()){
-            String userAgent = httpServletRequest.getHeader("User-Agent");
-            String ipCliente = httpServletRequest.getRemoteAddr();
+            try {
+                String userAgent = httpServletRequest.getHeader("User-Agent");
+                String ipCliente = httpServletRequest.getRemoteAddr();
 
-            InformaAvisoRequest informaAvisoRequest = new InformaAvisoRequest(request.getDestino(), request.getDataTermino());
-            informaAviso.informaAviso(cartao.get().getId(), informaAvisoRequest);
-            Aviso aviso = new Aviso(request.getDestino(), request.getDataTermino(), ipCliente, userAgent, cartao.get());
-            avisoRepository.save(aviso);
+                InformaAvisoRequest informaAvisoRequest = new InformaAvisoRequest(request.getDestino(), request.getDataTermino());
+                informaAviso.informaAviso(cartao.get().getId(), informaAvisoRequest);
+                Aviso aviso = new Aviso(request.getDestino(), request.getDataTermino(), ipCliente, userAgent, cartao.get());
+                avisoRepository.save(aviso);
 
-            return ResponseEntity.ok().build();
+                return ResponseEntity.ok().build();
+            }catch(FeignException ex){
+                return ResponseEntity.badRequest().build();
+            }
         }
         return ResponseEntity.notFound().build();
     }
