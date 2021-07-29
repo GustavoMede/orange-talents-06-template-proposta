@@ -55,7 +55,7 @@ public class PropostaController {
                 ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
                 proposta.setEstado(EstadoProposta.ELEGIVEL);
 
-                propostaRepository.save(proposta);
+                propostaRepository.save(proposta.encrypt());
 
                 URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
 
@@ -63,30 +63,27 @@ public class PropostaController {
 
             }catch(FeignException ex) {
                 proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
-                propostaRepository.save(proposta);
+                propostaRepository.save(proposta.encrypt());
                 URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
                 return ResponseEntity.created(uri).build();
             }
         }
 
         Proposta proposta = request.converteProdutoComEnderecoExistente(enderecoExistente);
-
         propostaRepository.save(proposta);
-
         ConsultaSolicitanteRequest requestConsulta = new ConsultaSolicitanteRequest(request.getDocumento(),
                 request.getNome(), proposta.getId().toString());
 
         try{
             ConsultaSolicitanteResponse consultaSolicitanteResponse = consultaSolicitante.consultaSolicitante(requestConsulta);
             proposta.setEstado(EstadoProposta.ELEGIVEL);
-
-            propostaRepository.save(proposta);
+            propostaRepository.save(proposta.encrypt());
 
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
             return ResponseEntity.created(uri).build();
         }catch(FeignException ex) {
             proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
-            propostaRepository.save(proposta);
+            propostaRepository.save(proposta.encrypt());
             URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
             return ResponseEntity.created(uri).build();
         }

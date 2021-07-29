@@ -1,6 +1,7 @@
 package br.com.zupacademy.gustavo.proposta.proposta;
 
 import br.com.zupacademy.gustavo.proposta.endereco.Endereco;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -71,5 +72,10 @@ public class Proposta {
 
     public void setEstado(EstadoProposta estado) {
         this.estado = estado;
+    }
+
+    public Proposta encrypt() {
+        this.documento = new BCryptPasswordEncoder().encode(documento);
+        return this;
     }
 }

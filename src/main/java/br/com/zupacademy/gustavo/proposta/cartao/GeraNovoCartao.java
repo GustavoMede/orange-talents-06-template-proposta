@@ -33,10 +33,9 @@ public class GeraNovoCartao {
             Proposta proposta = propostaRepository.findId(listaDeProposta.getId());
             if (!(proposta == null) && proposta.getEstado() == EstadoProposta.ELEGIVEL &&
                     proposta.getNumeroCartao() == null) {
-                NovoCartaoRequest novoCartaoRequest = new NovoCartaoRequest(proposta.getDocumento(),
-                        proposta.getNome(), proposta.getId().toString());
+                String idProposta = proposta.getId().toString();
 
-                NovoCartaoResponse novoCartaoResponse = novoCartao.solicitaNovoCartao(novoCartaoRequest);
+                NovoCartaoResponse novoCartaoResponse = novoCartao.solicitaNovoCartao(idProposta);
                 proposta.setNumeroCartao(novoCartaoResponse.getId());
                 cartaoRepository.save(new Cartao(novoCartaoResponse.getId(), novoCartaoResponse.getEmitidoEm(),
                         novoCartaoResponse.getTitular(), novoCartaoResponse.getLimite(),
