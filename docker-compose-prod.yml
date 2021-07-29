@@ -6,13 +6,17 @@ services:
       context: .
       dockerfile: ./Dockerfile
     image: proposta/api
+    restart: always
     ports:
       - 8081:8080
     environment:
       PROPOSAL_DATASOURCE_URL: jdbc:mysql://mysql:3306/proposta
+      PROPOSAL_KEYCLOAK_ISSUER_URL: http://keycloak:8080/auth/realms/master
+      PROPOSAL_KEYCLOAK_SET_URL: http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs
       SPRING_PROFILES_ACTIVE: prod
     depends_on:
       - mysql
+      - keycloak
 
   mysql:
     image: 'mysql:latest'
@@ -135,7 +139,10 @@ services:
 
   prometheus:
     image: prom/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-volume:/etc/prometheus/
     network_mode: bridge
     ports:
