@@ -43,7 +43,8 @@ public class GeraNovoCartao {
                             novoCartaoResponse.getTitular(), novoCartaoResponse.getLimite(),
                             novoCartaoResponse.getIdProposta()));
                     propostaRepository.save(proposta);
-                }catch(FeignException ignored){
+                }catch(FeignException ex){
+                    System.out.println(ex);
                 }
             }
         }

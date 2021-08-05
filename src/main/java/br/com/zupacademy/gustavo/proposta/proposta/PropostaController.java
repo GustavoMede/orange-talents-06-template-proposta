@@ -8,6 +8,7 @@ import br.com.zupacademy.gustavo.proposta.endereco.EnderecoRepository;
 import br.com.zupacademy.gustavo.proposta.cartao.CartaoRepository;
 import br.com.zupacademy.gustavo.proposta.cartao.NovoCartao;
 import feign.FeignException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -40,7 +41,7 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<URI> cadastra(@RequestBody @Valid PropostaRequest request) {
+    public ResponseEntity<?> cadastra(@RequestBody @Valid PropostaRequest request) {
 
         Endereco enderecoRequest = request.getEndereco();
         Endereco enderecoExistente = enderecoRepository.findEndereco(enderecoRequest.getRua(),
@@ -61,11 +62,16 @@ public class PropostaController {
                 return ResponseEntity.created(uri).build();
 
             }catch(FeignException ex) {
-                proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
-                propostaRepository.save(proposta.encrypt());
-                URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+                if(ex.status() == 422) {
+                    proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
+                    propostaRepository.save(proposta.encrypt());
+                    URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
 
-                return ResponseEntity.created(uri).build();
+                    return ResponseEntity.created(uri).build();
+                }else{
+                    propostaRepository.delete(proposta);
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Proposta inválida.");
+                }
             }
         }
 
@@ -83,11 +89,16 @@ public class PropostaController {
             return ResponseEntity.created(uri).build();
 
         }catch(FeignException ex) {
-            proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
-            propostaRepository.save(proposta.encrypt());
-            URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
+            if(ex.status() == 422) {
+                proposta.setEstado(EstadoProposta.NAO_ELEGIVEL);
+                propostaRepository.save(proposta.encrypt());
+                URI uri = UriComponentsBuilder.fromPath("/proposta/{id}").build().toUri();
 
-            return ResponseEntity.created(uri).build();
+                return ResponseEntity.created(uri).build();
+            }else{
+                propostaRepository.delete(proposta);
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Proposta inválida.");
+            }
         }
     }
 
