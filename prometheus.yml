@@ -17,7 +17,7 @@ scrape_configs:
       client_id: prometheus
       client_secret: 'caa1eeb6-91fa-477f-bdea-699c65b7fa44'
       scopes:
-        - prometheus
+        - metrics
       token_url: http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
       endpoint_params:
         username: prometheus
