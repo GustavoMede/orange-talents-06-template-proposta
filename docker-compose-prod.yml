@@ -72,8 +72,6 @@ services:
       - 19990:9990
     depends_on:
       # Just a delay to wait for postgres! This is not recommended!
-      - grafana
-      - prometheus
       - jaeger
       - kafka
       - zookeeper
@@ -146,6 +144,8 @@ services:
       - prometheus-volume:/etc/prometheus/
     ports:
       - "9090:9090"
+    depends_on:
+      - keycloak
 
   grafana:
     image: grafana/grafana
